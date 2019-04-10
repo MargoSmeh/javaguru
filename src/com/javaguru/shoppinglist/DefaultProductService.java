@@ -6,8 +6,9 @@ import java.util.Map;
 public class DefaultProductService implements ProductService {
 
     private Map<Long, Product> database = new HashMap<>();
-    private Long PRODUCT_ID_SEQUENCE = 0L;
+    private Long productIdSequence = 0L;
 
+    @Override
     public Product findBy(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id must be not null");
@@ -20,10 +21,10 @@ public class DefaultProductService implements ProductService {
         if (product == null) {
             throw new IllegalArgumentException("Cannot be null");
         }
-        product.setId(PRODUCT_ID_SEQUENCE);
+        product.setId(productIdSequence);
 
-        database.put(PRODUCT_ID_SEQUENCE, product);
-        return PRODUCT_ID_SEQUENCE++;
+        database.put(productIdSequence, product);
+        return productIdSequence++;
     }
 
 }

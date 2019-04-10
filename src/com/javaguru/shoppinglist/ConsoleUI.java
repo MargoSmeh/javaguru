@@ -26,6 +26,7 @@ public class ConsoleUI {
         }
     }
 
+
     private void printMenu() {
         for (int i = 0; i < actions.size(); i++) {
             System.out.println(i + ". " + actions.get(i));
