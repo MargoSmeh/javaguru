@@ -1,24 +1,12 @@
 package com.javaguru.shoppinglist;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.javaguru.shoppinglist.console.ConsoleUI;
 
 class ShoppingListApplication {
 
     public static void main(String[] args) {
-        ProductService productService = new DefaultProductService();
-        ProductValidationService productValidationService= new ProductValidationService();
 
-        Action exitAction = new ExitAction();
-        Action createUserAction = new CreateProductAction(productService, productValidationService);
-        Action findUserByIdAction = new FindProductByIdAction(productService);
-
-        List<Action> actions = new ArrayList<>();
-        actions.add(findUserByIdAction);
-        actions.add(createUserAction);
-        actions.add(exitAction);
-
-        ConsoleUI ui = new ConsoleUI(actions);
+        ConsoleUI ui = new ConsoleUI();
         ui.start();
     }
 }
