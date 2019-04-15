@@ -9,10 +9,11 @@ public class CreateProductAction implements Action {
 
     private final ProductService productService;
 
-    ProductValidationService productValidationService=new ProductValidationService();
+    private final ProductValidationService productValidationService;
 
-    public CreateProductAction(ProductService productService) {
+    public CreateProductAction(ProductService productService, ProductValidationService productValidationService) {
         this.productService = productService;
+        this.productValidationService = productValidationService;
     }
 
     @Override
@@ -41,19 +42,19 @@ public class CreateProductAction implements Action {
         try {
             productValidationService.validateName(product);
         } catch (ValidationException e) {
-            System.out.println("Name should be from 3 to 32 symbols");
+            System.out.println(e.getMessage());
         }
 
         try {
             productValidationService.validatePrice(product);
         } catch (ValidationException e) {
-            System.out.println("Price cannot be 0");
+            System.out.println(e.getMessage());
         }
 
         try {
             productValidationService.validateDiscount(product);
         } catch (ValidationException e) {
-            System.out.println("Discount should be less than 100%");
+            System.out.println(e.getMessage());
         }
 
         try {

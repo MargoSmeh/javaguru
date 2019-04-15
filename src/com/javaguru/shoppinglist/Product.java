@@ -13,7 +13,6 @@ public class Product {
     private BigDecimal discount;
     private BigDecimal actualPrice;
 
-
     public String getCategory() {
         return category;
     }
@@ -63,7 +62,7 @@ public class Product {
     }
 
     public BigDecimal calculateDiscount() {
-       BigDecimal  discountAmount = getPrice().multiply(getDiscount())
+        BigDecimal discountAmount = getPrice().multiply(getDiscount())
                 .divide(new BigDecimal(100), 2, BigDecimal.ROUND_CEILING);
         return discountAmount;
     }
