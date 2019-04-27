@@ -1,14 +1,25 @@
 package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.domain.Product;
+import com.javaguru.shoppinglist.service.CalculateActualPrice;
 import com.javaguru.shoppinglist.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+@Component
 public class ConsoleUI {
 
-    private ProductService productService = new ProductService();
+    private ProductService productService;
+    private CalculateActualPrice priceCalculation;
+
+    @Autowired
+    public ConsoleUI(ProductService productService, CalculateActualPrice priceCalculation) {
+        this.productService = productService;
+        this.priceCalculation=priceCalculation;
+    }
 
     public void start() {
         while (true) {
@@ -43,17 +54,20 @@ public class ConsoleUI {
         System.out.println("Enter product description: ");
         String description = scanner.nextLine();
         System.out.println("Enter product price: ");
-        String price = scanner.nextLine();
+        BigDecimal price = scanner.nextBigDecimal();
         System.out.println("Enter discount: ");
-        String discount = scanner.nextLine();
+        BigDecimal discount = scanner.nextBigDecimal();
+
+        BigDecimal actualPrice = priceCalculation.calculateActualPrice(price, discount);
 
         Product product = new Product();
         product.setName(name);
         product.setCategory(category);
         product.setDescription(description);
-        product.setPrice(new BigDecimal(price));
-        product.setDiscount(new BigDecimal(discount));
-        System.out.println("Actual price: " + product.calculateActualPrice());
+        product.setPrice(price);
+        product.setDiscount(discount);
+        product.setActualPrice(actualPrice);
+        System.out.println("Actual price: " + actualPrice);
 
         try {
             Long response = productService.createProduct(product);

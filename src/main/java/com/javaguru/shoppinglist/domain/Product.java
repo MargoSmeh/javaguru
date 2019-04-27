@@ -61,15 +61,12 @@ public class Product {
         this.price = price;
     }
 
-    public BigDecimal calculateDiscount() {
-        BigDecimal discountAmount = getPrice().multiply(getDiscount())
-                .divide(new BigDecimal(100), 2, BigDecimal.ROUND_CEILING);
-        return discountAmount;
+    public BigDecimal getActualPrice() {
+        return actualPrice;
     }
 
-    public BigDecimal calculateActualPrice() {
-        actualPrice = getPrice().subtract(calculateDiscount());
-        return actualPrice;
+    public void setActualPrice(BigDecimal actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
     @Override
